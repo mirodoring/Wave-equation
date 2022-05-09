@@ -5,6 +5,9 @@
 
 All of the files represent my codes in different subjects in seismology/geophysics
 
+wave_equation.py is a small code to show how the wave equations is done in one dimension
+2d_wave_equation.py is extending it to the two dimensions
+
 
 <!---
 mirodoring/mirodoring is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
