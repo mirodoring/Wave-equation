@@ -1,6 +1,6 @@
 - 👋 Hi, I’m @mirodoring
-- 👀 I’m interested in Seismology
-- 🌱 I’m currently learning computational seismology
+-  I’m interested in understanding the physics beneath the earth
+-  I'm always learning different subjects in geophysics/seismology
 
 
 All of the files represent my codes in different subjects in seismology/geophysics
