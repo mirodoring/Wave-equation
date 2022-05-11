@@ -11,25 +11,24 @@ import numpy as np
 import matplotlib.pyplot as plt
 #%%
 
-c0 = 2000       #Menor velocidade de propagação para o critério CFL
-f0 = 25         #Frequência dominante da fonte, também utilizado para o critério CFL
+c0 = 2000       #Smallest speed of propagation for the CFL criterion
+f0 = 25         #Dominant frequency at source, also for CFL criteria
 t = 3.5
-isrx = 100      #Localização da fonte no eixo x
-isrz = 100      #Localização da fonte no eixo z
-isnap = 10      #Frequencia de snapshot
+isrx = 100      #Source location at x-axis
+isrz = 100      #Source location at z-axis
 
-#Satisfazendo os critérios do CFL:
+#Satisfying the CFL criteria:
 
-dx = (c0/f0)/20 #divisão da velocidade pela frequencia e um número arbitrário de pontos do grid pra imagear cada wavelet
+dx = (c0/f0)/20 #dividing velocity by frequency and an arbitrary number of grid points to image each wavelet
 dz = dx
-nx = 500 #Quantidade de pontos de grid que vai precisar de acordo com o tamanho da menor célula
+nx = 500 #Number of grid points you will need according to the smallest cell size
 nz = 500
 
-dt = (0.7*dx)/c0  #Menor tamanho da célula do tempo de acordo com o critério de CFL
-nt = 2000       #número de pontos do grid do tempo
-t = np.linspace(0, nt*dt, nt) #tamanho do tempo
+dt = (0.7*dx)/c0  #Smallest time cell size according to CFL criteria
+nt = 2000       #number of time grid points
+t = np.linspace(0, nt*dt, nt) #Time
 
-#Criando um array para a velocidade, de 0-400(c=3000), 400-600(c=2400), 600-1000(c=3000)
+#Creating an array for speed, from 0-400(c=3000), 400-600(c=2400), 600-1000(c=3000)
 c = np.zeros((nz, nx))
 c[0:nx//2-100, :] = 2000
 c[nx//2-100:nx//2+100, :] = 3000
@@ -40,7 +39,7 @@ plt.imshow(c)
 
 #%%
 
-#Fonte de ricker/Ricker source
+#Ricker source - Its the second derivative of a gaussian source, the simple 2D case had the first derivative of the gaussian source
 
 def ricker(f, length=250, dt=0.001):
     t = np.arange(-length/2, (length-dt)/2, dt)
@@ -87,33 +86,3 @@ plt.imshow(pnew)
 # plt.clim(-1e05,1e05)
 plt.colorbar()
 plt.show()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
