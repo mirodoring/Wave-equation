@@ -13,17 +13,17 @@ import matplotlib.pyplot as plt
 """For stability the CFL condition has to be:"""
 
 #1D- maximum k equal to nyquist wavenumbr knyq = np.pi/dx
-#Stability requires cour <= 2/np.pi -> 0.636
+#Stability requires CFL criteria <= 2/np.pi -> 0.636
 
 #2D - kmax = np.sqrt(2)*knyq
-#Stability requires cour <= np.sqrt(2)/np.pi -> 0.45
+#Stability requires CFL criteria <= np.sqrt(2)/np.pi -> 0.45
 
 #3D - kmax = np.sqrt(3)*knyq
-#Stability requires cour <= 2/np.sqrt(3)*np.pi -> 0.367
+#Stability requires CFL criteria <= 2/np.sqrt(3)*np.pi -> 0.367
 
 #%%
 
-c0 = 2000       #Smallest speed of propagation for the CFL criterion
+c0 = 2000       #Smallest speed of propagation for the CFL criteria
 f0 = 8          #Dominant frequency at source, also for CFL criteria
 t = 3.5
 isrx = 100      #Source location at x-axis
