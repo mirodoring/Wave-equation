@@ -63,11 +63,11 @@ for it in range(nt):
     #3 point operator for the finite-difference
     if oper == 3
         for i in range (1, nx-1):
-            d2px[i, :] = (p[i + 1, :] - 2 * p[i, :] + p[i - 1, :]) / dx ** 2
+            d2px[i, :] = (p[i + 1, :] - 2 * p[i, :] + p[i - 1, :]) 
              #Second pressure derivative in respect to x
         
         for j in range (1, nz-1):
-            d2pz[:, j] = (p[:, j + 1] - 2 * p[:, j] + p[:, j - 1]) / dz ** 2
+            d2pz[:, j] = (p[:, j + 1] - 2 * p[:, j] + p[:, j - 1])
             #Second pressure derivative in respect to z
             
     #5 point operator for the finite-difference
@@ -79,6 +79,9 @@ for it in range(nt):
         for j in range (2, nz-2):
             d2pz[:, j] = -1/12*p[:, j + 2] + 4/3 * p[:, j + 1] \
                           -5/2 * p[:, j] + 4/3 * p[:, j - 1] + -1/12 * p[:, j - 2]
+    
+    d2px /= dx ** 2
+    d2pz /= dz ** 2
     
     pnew = (dt ** 2) * (c ** 2) * (d2px + d2pz) + 2 * p - pold
     #Calculation of the presure field
