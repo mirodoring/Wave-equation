@@ -9,6 +9,8 @@ Wave equation.py is a small code to show how the wave equations is done in one d
 
 2d_wave_equation.py is extending it to the two dimensions
 
+2d_wave_heterogeneous is again extending it but now to a heterogeneous medium
+
 
 <!---
 mirodoring/mirodoring is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
