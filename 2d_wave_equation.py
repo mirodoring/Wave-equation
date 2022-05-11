@@ -83,18 +83,21 @@ for it in range(nt):
     d2px /= dx ** 2
     d2pz /= dz ** 2
     
-    pnew = (dt ** 2) * (c ** 2) * (d2px + d2pz) + 2 * p - pold
     #Calculation of the presure field
-    
-    # pnew[isrc] = pnew[isrc] + dt**2 * src[it]
-    # pnew[isrx, isrz] = pnew[isrx, isrz] + src[it] * dt ** 2
-    pnew[isrz, isrx] = pnew[isrz, isrx] + src[it] / (dx * dz) * (dt ** 2) 
+    pnew = (dt ** 2) * (c ** 2) * (d2px + d2pz) + 2 * p - pold
+
     #Again calculating the pressure field but with loop for time
+    pnew[isrz, isrx] = pnew[isrz, isrx] + src[it] / (dx * dz) * (dt ** 2)
     
+    #Plotting the snapshots
+    if (it % snap == 0):
+        plt.figure()
+        plt.imshow(pnew)
+        
     pold, p = p, pnew #Assigning the variables for an effective loop
 
-plt.figure()
-plt.title("2D Wave equation")
-plt.imshow(pnew)
-plt.colorbar()
-plt.show()
+#plt.figure()
+#plt.title("2D Wave equation")
+#plt.imshow(pnew)
+#plt.colorbar()
+#plt.show()
