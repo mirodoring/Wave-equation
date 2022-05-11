@@ -94,6 +94,7 @@ for it in range(nt):
         plt.figure()
         plt.imshow(pnew)
         plt.colorbar()
+        #plt.clim()
         
     pold, p = p, pnew #Assigning the variables for an effective loop
 
