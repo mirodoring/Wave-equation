@@ -19,6 +19,7 @@ dx = 1          #size of step in x
 dz = dx         #size of step in z
 isrx = int(xmax/2)      #Location of source in x axis
 isrz = int(zmax/2)      #Location of source in z axis
+oper = 5        #Finite-difference operator number (3 or 5)
 
 f0 = 20         #Dominant frequency
 t0 = 1./f0      #Source time shift
@@ -59,13 +60,25 @@ d2px = np.zeros((nx, nz))
 d2pz = np.zeros((nx, nz))
 
 for it in range(nt):
-    for i in range (1, nx-1):
-        d2px[i, :] = (p[i + 1, :] - 2 * p[i, :] + p[i - 1, :]) / dx ** 2
-        #Second pressure derivative in respect to x
+    #3 point operator for the finite-difference
+    if oper == 3
+        for i in range (1, nx-1):
+            d2px[i, :] = (p[i + 1, :] - 2 * p[i, :] + p[i - 1, :]) / dx ** 2
+             #Second pressure derivative in respect to x
         
-    for j in range (1, nz-1):
-        d2pz[:, j] = (p[:, j + 1] - 2 * p[:, j] + p[:, j - 1]) / dz ** 2
-        #Second pressure derivative in respect to z
+        for j in range (1, nz-1):
+            d2pz[:, j] = (p[:, j + 1] - 2 * p[:, j] + p[:, j - 1]) / dz ** 2
+            #Second pressure derivative in respect to z
+            
+    #5 point operator for the finite-difference
+    if oper == 5:
+        for i in range (2, nx-2):
+            d2px[i, :] = -1/12*p[i + 2, :] + 4/3*p[i + 1, :] \
+                          -5/2 * p[i, :] + 4/3*p[i - 1, :] + -1/12 * p[i - 2, :]
+                
+        for j in range (2, nz-2):
+            d2pz[:, j] = -1/12*p[:, j + 2] + 4/3 * p[:, j + 1] \
+                          -5/2 * p[:, j] + 4/3 * p[:, j - 1] + -1/12 * p[:, j - 2]
     
     pnew = (dt ** 2) * (c ** 2) * (d2px + d2pz) + 2 * p - pold
     #Calculation of the presure field
@@ -82,18 +95,3 @@ plt.title("2D Wave equation")
 plt.imshow(pnew)
 plt.colorbar()
 plt.show()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
