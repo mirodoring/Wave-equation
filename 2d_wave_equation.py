@@ -93,6 +93,7 @@ for it in range(nt):
     if (it % snap == 0):
         plt.figure()
         plt.imshow(pnew)
+        plt.colorbar()
         
     pold, p = p, pnew #Assigning the variables for an effective loop
 
