@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue May 10 15:02:29 2022
+Created on Tue May 10 15:02:29 2021
 
 @author: mirof
 """
@@ -9,13 +9,27 @@ Created on Tue May 10 15:02:29 2022
 
 import numpy as np
 import matplotlib.pyplot as plt
+
+"""For stability the CFL condition has to be:"""
+
+#1D- maximum k equal to nyquist wavenumbr knyq = np.pi/dx
+#Stability requires cour <= 2/np.pi -> 0.636
+
+#2D - kmax = np.sqrt(2)*knyq
+#Stability requires cour <= np.sqrt(2)/np.pi -> 0.45
+
+#3D - kmax = np.sqrt(3)*knyq
+#Stability requires cour <= 2/np.sqrt(3)*np.pi -> 0.367
+
 #%%
 
 c0 = 2000       #Smallest speed of propagation for the CFL criterion
-f0 = 25         #Dominant frequency at source, also for CFL criteria
+f0 = 8          #Dominant frequency at source, also for CFL criteria
 t = 3.5
 isrx = 100      #Source location at x-axis
 isrz = 100      #Source location at z-axis
+snap = 200      #Snapshot frequency
+t0 = 999./f0
 
 #Satisfying the CFL criteria:
 
@@ -24,8 +38,8 @@ dz = dx
 nx = 500 #Number of grid points you will need according to the smallest cell size
 nz = 500
 
-dt = (0.7*dx)/c0  #Smallest time cell size according to CFL criteria
-nt = 2000       #number of time grid points
+dt = 0.001  #Smallest time cell size according to CFL criteria
+nt = 500       #number of time grid points
 t = np.linspace(0, nt*dt, nt) #Time
 
 #Creating an array for speed, from 0-400(c=3000), 400-600(c=2400), 600-1000(c=3000)
@@ -33,7 +47,15 @@ c = np.zeros((nz, nx))
 c[0:nx//2-100, :] = 2000
 c[nx//2-100:nx//2+100, :] = 3000
 c[nx//2+100:nx, :] = 3500 
-plt.imshow(c)
+
+# plt.figure() 
+# plt.imshow(c)
+# plt.colorbar()
+# plt.title("Velocity model")
+
+cmax = 3500
+eps  = cmax * dt / dx # epsilon value
+print('CFL condition =', eps)
 
 
 
@@ -43,11 +65,24 @@ plt.imshow(c)
 
 def ricker(f, length=250, dt=0.001):
     t = np.arange(-length/2, (length-dt)/2, dt)
-    y = (1.0 - 2.0*(np.pi**2)*(f**2)*(t**2)) * np.exp(-(np.pi**2)*(f**2)*(t**2))
+    y = (1.0 - 2.0*(np.pi**2)*(f**2)*((t+t0)**2)) * np.exp(-(np.pi**2)*(f**2)*((t+t0)**2))
     return t, y
 
-f = 25 # A low wavelength of 25 Hz
+f = 8 # A low wavelength of 25 Hz
 t, w = ricker(f)
+
+# plt.figure()
+# plt.title("Gaussian function")
+# plt.xlabel("time")
+# plt.ylabel("Amplitude of gaussian function")
+# plt.plot(t,w)
+# plt.show()
+
+spec = np.fft.fft(w) # Temporal source function in the frequency domain
+freq = np.fft.fftfreq(spec.size, d = dt) # Time domain in frequency
+# plt.plot(np.abs(freq), np.abs(spec)) # Plotting the frequency and amplitude
+# plt.xlim([0,80]) #Limiting x window
+
 
 #%%
 
@@ -77,6 +112,12 @@ for it in range(nt):
     pnew = (dt ** 2) * (c ** 2) * (d2px + d2pz) + 2 * p - pold
     
     pnew[isrz, isrx] = pnew[isrz, isrx] + w[it] / (dx * dz) * (dt ** 2)
+    
+    #Plotting the snapshots   
+    # if (it % snap == 0):
+    #     plt.figure()
+    #     plt.imshow(pnew)
+    #     plt.colorbar()
     
     pold, p = p, pnew
 
