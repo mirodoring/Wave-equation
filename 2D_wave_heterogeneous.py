@@ -37,6 +37,11 @@ dx = (c0/f0)/20 #dividing velocity by frequency and an arbitrary number of grid 
 dz = dx
 nx = 500 #Number of grid points you will need according to the smallest cell size
 nz = 500
+#Inserting boundary conditions
+nx_bor = 40 #boundary of 20 on each size of the model
+nz_bor = 40
+nz_new = nz + nz_bor #Size of the new model with the extra boundary
+nx_new = nx + nx_bor
 
 dt = 0.001  #Smallest time cell size according to CFL criteria
 nt = 500       #number of time grid points
