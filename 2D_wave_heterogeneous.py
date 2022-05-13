@@ -77,9 +77,9 @@ f = 8 # A low wavelength of 25 Hz
 t, w = ricker(f)
 
 # plt.figure()
-# plt.title("Gaussian function")
+# plt.title("Ricker function")
 # plt.xlabel("time")
-# plt.ylabel("Amplitude of gaussian function")
+# plt.ylabel("Amplitude of ricker function")
 # plt.plot(t,w)
 # plt.show()
 
