@@ -10,7 +10,9 @@ Created on Tue May 10 15:02:29 2021
 import numpy as np
 import matplotlib.pyplot as plt
 
-"""For stability the CFL condition has to be:"""
+"""For stability the CFL condition has to be[1]:
+[1] Bording, Lines P., and R. L. Slawinski. "A Recipe For Stability Analysis Of Finite Difference Wave Equation Computations." (1998).
+"""
 
 #1D- maximum k equal to nyquist wavenumbr knyq = np.pi/dx
 #Stability requires CFL criteria <= 2/np.pi -> 0.636
