@@ -30,7 +30,7 @@ isrx = 100      #Source location at x-axis
 isrz = 100      #Source location at z-axis
 snap = 200      #Snapshot frequency
 t0 = 999./f0
-oper == 3
+oper = 3
 #Satisfying the CFL criteria:
 
 dx = (c0/f0)/20 #dividing velocity by frequency and an arbitrary number of grid points to image each wavelet
